@@ -1,0 +1,46 @@
+@import '../../variables.scss';
+
+.daren-ui-sandbox{
+  display: grid;
+  grid-template-columns: 2fr 6fr;
+  grid-gap: 0;
+
+  &-navigation{
+    padding: 32px;
+
+    &-item{
+      display: flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 16px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &-active{
+        background-color: $bg_2;
+      }
+    }
+  }
+
+  &-content{
+    background-color: $bg_2;
+    padding: 32px;
+    min-height: 100vh;
+
+    &-title{
+      font-size: 2em;
+      margin: 0 0 64px 0;
+    }
+
+    &-subtitle{
+      margin-bottom: 8px;
+    }
+
+    &-row{
+      display: flex;
+      justify-content: space-between;
+      margin: 24px 0;
+    }
+  }
+}

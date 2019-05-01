@@ -1,0 +1,63 @@
+@import '../variables.scss';
+
+.daren-ui-table-container{
+  position: relative;
+  background-color: $white;
+  overflow-x: auto;
+
+  .daren-ui-table{
+    border-collapse: collapse;
+    width: 100%;
+
+    .daren-ui-tableheader-row{
+      .daren-ui-tableheadercell{
+        position: relative;
+        margin: 0;
+        padding: 8px 16px;
+        background-color: $bg_2;
+        border-bottom: 1px solid $border;
+        border-top: 1px solid $border;
+
+        .daren-ui-tableheadercell-content{
+          text-align: left;
+          color: $text_muted;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .daren-ui-tableheadercell-resizable-handler{
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 4px;
+          background-color: $blue;
+          cursor: col-resize;
+        }
+      }
+    }
+
+    .daren-ui-table-row{
+      .daren-ui-tablecell{
+        position: relative;
+        margin: 0;
+        padding: 8px 16px;
+        border-bottom: 1px solid $border;
+
+        .daren-ui-tablecell-content{
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .daren-ui-table-resizable-marker{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: $blue;
+    display: none;
+  }
+}

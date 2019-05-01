@@ -1,0 +1,97 @@
+@import '../variables.scss';
+
+.daren-ui-button{
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  background-color: $neutral_base;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: .15s ease-in-out;
+
+  &:hover{
+    background-color: $neutral_dark;
+  }
+
+  .daren-ui-icon{
+    fill: $white;
+    width: 20px;
+    height: 20px;
+    margin: 0 8px 0 0;
+  }
+
+  .daren-ui-button-text{
+    text-transform: uppercase;
+    color: $white;
+    letter-spacing: .15em;
+  }
+}
+
+// Templates
+.daren-ui-button-danger{
+  background-color: $red;
+
+  &:hover{
+    background-color: $red_dark;
+  }
+}
+
+.daren-ui-button-success{
+  background-color: $green;
+
+  &:hover{
+    background-color: $green_dark;
+  }
+}
+
+.daren-ui-button-alternative{
+  background-color: $white;
+  border: 1px solid $bg_5;
+
+  &:hover{
+    background-color: $white;
+    border-color: $bg_6;
+
+    .daren-ui-button-text{
+      color: $bg_7;
+    }
+
+    .daren-ui-icon{
+      fill: $bg_7;
+    }
+  }
+
+  .daren-ui-icon{
+    fill: $bg_6;
+  }
+
+  .daren-ui-button-text{
+    color: $bg_6;
+  }
+}
+
+.daren-ui-button-disabled{
+  background-color: $bg_4;
+  cursor: not-allowed;
+
+  &:hover{
+    background-color: $bg_4;
+
+    .daren-ui-button-text{
+      color: $bg_6;
+    }
+  }
+
+  .daren-ui-button-text{
+    color: $bg_6;
+  }
+}
+
+.daren-ui-button-icon-right{
+  flex-direction: row-reverse;
+
+  .daren-ui-icon{
+    margin: 0 0 0 8px;
+  }
+}
