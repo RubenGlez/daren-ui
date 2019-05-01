@@ -4,10 +4,12 @@ import './Sandbox.scss';
 
 import Buttons from './Buttons';
 import Tables from './Tables';
+import Inputs from './Inputs';
 
 const sections = [
-  Tables,
+  Inputs,
   Buttons,
+  Tables,
 ];
 
 
