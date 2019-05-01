@@ -6,8 +6,8 @@ import Buttons from './Buttons';
 import Tables from './Tables';
 
 const sections = [
-  Buttons,
   Tables,
+  Buttons,
 ];
 
 

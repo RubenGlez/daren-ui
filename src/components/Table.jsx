@@ -1,72 +1,82 @@
 import React, { Component } from 'react';
 import './Table.scss';
 
+import ColumnResizer from 'column-resizer';
+
 
 export default class Table extends Component {
-  constructor(props) {
-    super(props);
-
-    this.tableRef = React.createRef();
-
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
-  }
-
   componentDidMount() {
-    const resizableColumns = this.tableRef.current.querySelector('thead tr th.daren-ui-tableheadercell-resizable');
-    if (resizableColumns) {
-      this.resizableMarker = this.tableRef.current.closest('.daren-ui-table-container').querySelector('.daren-ui-table-resizable-marker');
-      document.addEventListener('mousedown', this.onMouseDown);
-      document.addEventListener('mousemove', this.onMouseMove);
-      document.addEventListener('mouseup', this.onMouseUp);
+    if (this.props.resizable) this.enableResize();
+  }
+
+  componentWillUpdate() {
+    if (this.props.resizable) this.disableResize();
+  }
+
+  componentDidUpdate() {
+    if (this.props.resizable) this.enableResize();
+  }
+
+  componentWillUnmount() {
+    if (this.props.resizable) this.disableResize();
+  }
+
+
+  enableResize() {
+    const options = this.props.resizerOptions;
+    if (!this.resizer) {
+      this.resizer = new ColumnResizer(
+        document.querySelector('#' + this.props.fieldId),
+        options
+      );
+    } else {
+      this.resizer.reset(options);
     }
   }
 
-  onMouseDown(e) {
-    e.preventDefault();
-    if (e.target.classList.contains('daren-ui-tableheadercell-resizable-handler')) {
-      this.resizableHandler = e.target;
-      this.currentColumn = this.resizableHandler.closest('.daren-ui-tableheadercell-resizable');
-      this.currentColumnLeft = this.currentColumn.getBoundingClientRect().left;
-    }
+  disableResize() {
+    if (this.resizer) this.resizer.reset({ disable: true });
   }
 
-  onMouseMove(e) {
-    if (!this.resizableHandler) return;
-    const tableLeft = this.tableRef.current.getBoundingClientRect().left;
-    const posX = e.pageX - tableLeft;
-    const newWidth = posX - this.currentColumnLeft;
-    const handlerNewWidth = Math.round(this.resizableHandler.getBoundingClientRect().left + (this.resizableHandler.getBoundingClientRect().width / 2)) - tableLeft;
-
-    this.currentColumn.style.width = newWidth + 'px';
-    this.resizableMarker.style.left = handlerNewWidth + 'px';
-    if (this.resizableMarker.style.display !== 'block') this.resizableMarker.style.display = 'block';
-  }
-
-  onMouseUp(e) {
-    this.resizableHandler = null;
-    this.resizableMarker.style.display = 'none';
-  }
 
   render() {
     return (
       <div className="daren-ui-table-container">
-        <table className="daren-ui-table" ref={this.tableRef}>
-          <thead>
+        <table className="daren-ui-table" id={this.props.fieldId}>
+          <thead className="daren-ui-table-header">
             {this.props.renderTableHeader()}
           </thead>
-          <tbody>
+          <tbody className="daren-ui-table-body">
             {this.props.renderTableRows()}
           </tbody>
         </table>
-        <div className="daren-ui-table-resizable-marker" />
       </div>
     );
   }
 }
 
 Table.defaultProps = {
+  fieldId: '',
   renderTableHeader: () => {},
   renderTableRows: () => {},
+  resizable: false,
+  resizerOptions: {
+    resizeMode: 'overflow',
+    disable: false,
+    disabledColumns: [],
+    liveDrag: false,
+    partialRefresh: false,
+    innerGripHtml: '',
+    draggingClass: null,
+    minWidth: 15,
+    headerOnly: false,
+    hoverCursor: 'e-resize',
+    dragCursor: 'e-resize',
+    flush: false,
+    marginLeft: null,
+    marginRight: null,
+    remoteTable: null,
+    widths: [],
+    serialize: true,
+  },
 };
