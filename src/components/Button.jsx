@@ -8,10 +8,10 @@ import './Button.scss';
 export default class Button extends Component {
   render() {
     const buttonClassNames = classNames({
-      'daren-ui-button': true,
-      ['daren-ui-button-' + this.props.template]: this.props.template,
-      'daren-ui-button-icon-right': this.props.isIconRight,
-      'daren-ui-button-disabled': this.props.isDisabled,
+      'dui-button': true,
+      ['dui-button-' + this.props.template]: this.props.template,
+      'dui-button-icon-right': this.props.isIconRight,
+      'dui-button-disabled': this.props.isDisabled,
     });
 
 
@@ -22,7 +22,7 @@ export default class Button extends Component {
           <Icon name={this.props.icon} />
         }
         {this.props.text &&
-          <div className="daren-ui-button-text">{this.props.text}</div>
+          <div className="dui-button-text">{this.props.text}</div>
         }
       </div>
     ) : (
@@ -33,7 +33,7 @@ export default class Button extends Component {
           <Icon name={this.props.icon} />
         }
         {this.props.text &&
-          <div className="daren-ui-button-text">{this.props.text}</div>
+          <div className="dui-button-text">{this.props.text}</div>
         }
       </div>
     );

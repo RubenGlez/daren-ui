@@ -1,7 +1,22 @@
 @import '../variables.scss';
 
-.daren-ui-input{
+.dui-input{
   position: relative;
+
+  &-empty{
+      .dui-input-label{
+        font-size: 1em;
+        top: 6px;
+        height: auto;
+      }
+  }
+
+  &:active,
+  &:focus{
+    .dui-input-input{
+      border: 1px solid $blue;
+    }
+  }
 
   &-label{
     position: absolute;
@@ -28,6 +43,5 @@
     font-size: 1em;
     color: $text;
     padding: 0 8px;
-
   }
 }

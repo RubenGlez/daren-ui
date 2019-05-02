@@ -9,7 +9,7 @@ import TableCell from '../../components/TableCell';
 export default class Tables extends Component {
   renderTableHeader() {
     return (
-      <tr className="daren-ui-table-header-row">
+      <tr className="dui-table-header-row">
         <TableHeaderCell>{'Cabecera uno'}</TableHeaderCell>
         <TableHeaderCell>{'Cabecera dos'}</TableHeaderCell>
         <TableHeaderCell>{'Cabecera tres'}</TableHeaderCell>
@@ -24,7 +24,7 @@ export default class Tables extends Component {
 
     for (let i = 0; i < 10; i++) {
       rows.push(
-        <tr className="daren-ui-table-body-row" key={i}>
+        <tr className="dui-table-body-row" key={i}>
           <TableCell>{'Celda uno'}</TableCell>
           <TableCell>{'Celda dos'}</TableCell>
           <TableCell>{'Celda tres'}</TableCell>
@@ -41,14 +41,12 @@ export default class Tables extends Component {
   render() {
     return (
       <Fragment>
-        <div className="daren-ui-sandbox-content-title">Table.jsx</div>
+        <div className="dui-sandbox-content-title">Table.jsx</div>
         <div>
           <Table
-            fieldId={'sandbox_table'}
             renderTableHeader={this.renderTableHeader}
             renderTableRows={this.renderTableRows}
             resizable={true}
-            resizerOptions={{}}
           />
         </div>
       </Fragment>

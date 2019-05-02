@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.daren-ui-sandbox{
+.dui-sandbox{
   display: grid;
   grid-template-columns: 2fr 6fr;
   grid-gap: 0;
@@ -26,6 +26,7 @@
   &-content{
     background-color: $bg_2;
     padding: 32px;
+    overflow: hidden;
     min-height: 100vh;
 
     &-title{

@@ -28,21 +28,21 @@ export default class Sandbox extends Component {
     const SectionContent = sections[this.state.section];
 
     return (
-      <div className="daren-ui-sandbox">
-        <div className="daren-ui-sandbox-navigation">
+      <div className="dui-sandbox">
+        <div className="dui-sandbox-navigation">
           {sections.map((section, index) => (
             <div
               key={index}
               className={classNames({
-                'daren-ui-sandbox-navigation-item': true,
-                'daren-ui-sandbox-navigation-item-active': this.state.section === index,
+                'dui-sandbox-navigation-item': true,
+                'dui-sandbox-navigation-item-active': this.state.section === index,
               })}
               onClick={() => this._goToSection(index)}>
               {section.name}
             </div>
           ))}
         </div>
-        <div className="daren-ui-sandbox-content">
+        <div className="dui-sandbox-content">
           <SectionContent />
         </div>
       </div>

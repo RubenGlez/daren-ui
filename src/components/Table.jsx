@@ -5,6 +5,12 @@ import ColumnResizer from 'column-resizer';
 
 
 export default class Table extends Component {
+  constructor(props) {
+    super(props);
+
+    this.tableRef = React.createRef();
+  }
+
   componentDidMount() {
     if (this.props.resizable) this.enableResize();
   }
@@ -26,7 +32,7 @@ export default class Table extends Component {
     const options = this.props.resizerOptions;
     if (!this.resizer) {
       this.resizer = new ColumnResizer(
-        document.querySelector('#' + this.props.fieldId),
+        this.tableRef.current,
         options
       );
     } else {
@@ -41,12 +47,12 @@ export default class Table extends Component {
 
   render() {
     return (
-      <div className="daren-ui-table-container">
-        <table className="daren-ui-table" id={this.props.fieldId}>
-          <thead className="daren-ui-table-header">
+      <div className="dui-table-container">
+        <table className="dui-table" ref={this.tableRef}>
+          <thead className="dui-table-header">
             {this.props.renderTableHeader()}
           </thead>
-          <tbody className="daren-ui-table-body">
+          <tbody className="dui-table-body">
             {this.props.renderTableRows()}
           </tbody>
         </table>
@@ -56,7 +62,6 @@ export default class Table extends Component {
 }
 
 Table.defaultProps = {
-  fieldId: '',
   renderTableHeader: () => {},
   renderTableRows: () => {},
   resizable: false,
@@ -64,14 +69,14 @@ Table.defaultProps = {
     resizeMode: 'overflow',
     disable: false,
     disabledColumns: [],
-    liveDrag: false,
+    liveDrag: true,
     partialRefresh: false,
     innerGripHtml: '',
-    draggingClass: null,
+    draggingClass: 'grip-drag',
     minWidth: 15,
     headerOnly: false,
-    hoverCursor: 'e-resize',
-    dragCursor: 'e-resize',
+    hoverCursor: 'col-resize',
+    dragCursor: 'col-resize',
     flush: false,
     marginLeft: null,
     marginRight: null,

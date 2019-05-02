@@ -1,6 +1,6 @@
 @import '../variables.scss';
 
-.daren-ui-button{
+.dui-button{
   display: inline-flex;
   align-items: center;
   height: 40px;
@@ -14,14 +14,14 @@
     background-color: $neutral_dark;
   }
 
-  .daren-ui-icon{
+  .dui-icon{
     fill: $white;
     width: 20px;
     height: 20px;
     margin: 0 8px 0 0;
   }
 
-  .daren-ui-button-text{
+  .dui-button-text{
     text-transform: uppercase;
     color: $white;
     letter-spacing: .15em;
@@ -29,7 +29,7 @@
 }
 
 // Templates
-.daren-ui-button-danger{
+.dui-button-danger{
   background-color: $red;
 
   &:hover{
@@ -37,7 +37,7 @@
   }
 }
 
-.daren-ui-button-success{
+.dui-button-success{
   background-color: $green;
 
   &:hover{
@@ -45,7 +45,7 @@
   }
 }
 
-.daren-ui-button-alternative{
+.dui-button-alternative{
   background-color: $white;
   border: 1px solid $bg_5;
 
@@ -53,45 +53,45 @@
     background-color: $white;
     border-color: $bg_6;
 
-    .daren-ui-button-text{
+    .dui-button-text{
       color: $bg_7;
     }
 
-    .daren-ui-icon{
+    .dui-icon{
       fill: $bg_7;
     }
   }
 
-  .daren-ui-icon{
+  .dui-icon{
     fill: $bg_6;
   }
 
-  .daren-ui-button-text{
+  .dui-button-text{
     color: $bg_6;
   }
 }
 
-.daren-ui-button-disabled{
+.dui-button-disabled{
   background-color: $bg_4;
   cursor: not-allowed;
 
   &:hover{
     background-color: $bg_4;
 
-    .daren-ui-button-text{
+    .dui-button-text{
       color: $bg_6;
     }
   }
 
-  .daren-ui-button-text{
+  .dui-button-text{
     color: $bg_6;
   }
 }
 
-.daren-ui-button-icon-right{
+.dui-button-icon-right{
   flex-direction: row-reverse;
 
-  .daren-ui-icon{
+  .dui-icon{
     margin: 0 0 0 8px;
   }
 }

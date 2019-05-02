@@ -17,10 +17,10 @@ export default class Buttons extends Component {
   render() {
     return (
       <Fragment>
-        <div className="daren-ui-sandbox-content-title">Button.jsx</div>
+        <div className="dui-sandbox-content-title">Button.jsx</div>
 
-        <div className="daren-ui-sandbox-content-subtitle">Button - Templates</div>
-        <div className="daren-ui-sandbox-content-row">
+        <div className="dui-sandbox-content-subtitle">Button - Templates</div>
+        <div className="dui-sandbox-content-row">
           <Button
             text={'default'}
             icon={null}
@@ -55,8 +55,8 @@ export default class Buttons extends Component {
           />
         </div>
 
-        <div className="daren-ui-sandbox-content-subtitle">Button - Status</div>
-        <div className="daren-ui-sandbox-content-row">
+        <div className="dui-sandbox-content-subtitle">Button - Status</div>
+        <div className="dui-sandbox-content-row">
           <Button
             text={'enabled'}
             icon={null}
@@ -75,8 +75,8 @@ export default class Buttons extends Component {
           />
         </div>
 
-        <div className="daren-ui-sandbox-content-subtitle">Button - Icons</div>
-        <div className="daren-ui-sandbox-content-row">
+        <div className="dui-sandbox-content-subtitle">Button - Icons</div>
+        <div className="dui-sandbox-content-row">
           <Button
             text={'default'}
             icon={'arrow-left'}
@@ -111,8 +111,8 @@ export default class Buttons extends Component {
           />
         </div>
 
-        <div className="daren-ui-sandbox-content-subtitle">Button - Icons reverse</div>
-        <div className="daren-ui-sandbox-content-row">
+        <div className="dui-sandbox-content-subtitle">Button - Icons reverse</div>
+        <div className="dui-sandbox-content-row">
           <Button
             text={'default'}
             icon={'arrow-left'}
