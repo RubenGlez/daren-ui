@@ -9,14 +9,16 @@ export default class Inputs extends Component {
     super(props);
 
     this.state = {
-      inputValue: '',
+      example_input1: '',
+      example_input2: 'Soy un campo activo',
+      example_input3: 'Aqui hay errores',
     };
 
     this._onChange = this._onChange.bind(this);
   }
 
   _onChange(e, value, fieldId) {
-    this.setState( { inputValue: value });
+    this.setState( { [fieldId]: value });
   }
 
 
@@ -25,12 +27,37 @@ export default class Inputs extends Component {
       <Fragment>
         <div className="dui-sandbox-content-title">Input.jsx</div>
 
-        <Input
-          fieldId={'example_input'}
-          label={'example'}
-          value={this.state.inputValue}
-          onChange={this._onChange}
-        />
+        <div className="dui-sandbox-content-subtitle">Input - Default</div>
+        <div className="dui-sandbox-content-row">
+          <Input
+            fieldId={'example_input1'}
+            label={'Label'}
+            value={this.state.example_input1}
+            onChange={this._onChange}
+          />
+        </div>
+
+        <div className="dui-sandbox-content-subtitle">Input - With value</div>
+        <div className="dui-sandbox-content-row">
+          <Input
+            fieldId={'example_input2'}
+            label={'Label'}
+            value={this.state.example_input2}
+            onChange={this._onChange}
+            isClearable={true}
+          />
+        </div>
+
+        <div className="dui-sandbox-content-subtitle">Input - Error</div>
+        <div className="dui-sandbox-content-row">
+          <Input
+            fieldId={'example_input3'}
+            label={'Label'}
+            value={this.state.example_input3}
+            onChange={this._onChange}
+            error={'Hay errores en este campo y tienen una explicación super larga'}
+          />
+        </div>
 
       </Fragment>
     );

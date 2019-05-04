@@ -38,6 +38,14 @@ export default class Buttons extends Component {
             onClick={this.onClick}
           />
           <Button
+            text={'warning'}
+            icon={null}
+            isIconRight={false}
+            template={'warning'}
+            isDisabled={false}
+            onClick={this.onClick}
+          />
+          <Button
             text={'danger'}
             icon={null}
             isIconRight={false}
@@ -46,10 +54,10 @@ export default class Buttons extends Component {
             onClick={this.onClick}
           />
           <Button
-            text={'alternative'}
+            text={'info'}
             icon={null}
             isIconRight={false}
-            template={'alternative'}
+            template={'info'}
             isDisabled={false}
             onClick={this.onClick}
           />
@@ -86,66 +94,15 @@ export default class Buttons extends Component {
             onClick={this.onClick}
           />
           <Button
-            text={'success'}
-            icon={'check'}
-            isIconRight={false}
-            template={'success'}
-            isDisabled={false}
-            onClick={this.onClick}
-          />
-          <Button
-            text={'danger'}
-            icon={'close'}
-            isIconRight={false}
-            template={'danger'}
-            isDisabled={false}
-            onClick={this.onClick}
-          />
-          <Button
-            text={'alternative'}
-            icon={'close'}
-            isIconRight={false}
-            template={'alternative'}
-            isDisabled={false}
-            onClick={this.onClick}
-          />
-        </div>
-
-        <div className="dui-sandbox-content-subtitle">Button - Icons reverse</div>
-        <div className="dui-sandbox-content-row">
-          <Button
             text={'default'}
-            icon={'arrow-left'}
+            icon={'arrow-right'}
             isIconRight={true}
             template={null}
             isDisabled={false}
             onClick={this.onClick}
           />
-          <Button
-            text={'success'}
-            icon={'check'}
-            isIconRight={true}
-            template={'success'}
-            isDisabled={false}
-            onClick={this.onClick}
-          />
-          <Button
-            text={'danger'}
-            icon={'close'}
-            isIconRight={true}
-            template={'danger'}
-            isDisabled={false}
-            onClick={this.onClick}
-          />
-          <Button
-            text={'alternative'}
-            icon={'close'}
-            isIconRight={true}
-            template={'alternative'}
-            isDisabled={false}
-            onClick={this.onClick}
-          />
         </div>
+
       </Fragment>
     );
   }

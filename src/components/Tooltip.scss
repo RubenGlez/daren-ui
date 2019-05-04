@@ -1,0 +1,40 @@
+@import '../variables.scss';
+
+
+.dui-tooltip{
+  position: relative;
+
+  &-message{
+    position: absolute;
+    bottom: -24px;
+    left: 0;
+    right: auto;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 4px;
+    background-color: $info;
+    color: $white;
+    font-size: 12px;
+    line-height: 0;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity .15s ease-out 0s;
+
+
+    &-visible{
+      opacity: 1;
+      transition: opacity .15s ease-in .5s;
+    }
+
+    &-top{
+      top: -24px;
+    }
+
+    &-right{
+      left: auto;
+      right: 0;
+    }
+  }
+}

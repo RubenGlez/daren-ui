@@ -10,9 +10,17 @@ body {
   font-family: "Titillium Web", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $text;
+  color: $master;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea,
+button{
+  font-family:inherit;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: "Courier New", monospace;
 }

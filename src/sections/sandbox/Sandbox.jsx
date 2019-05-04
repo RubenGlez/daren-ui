@@ -5,8 +5,10 @@ import './Sandbox.scss';
 import Buttons from './Buttons';
 import Tables from './Tables';
 import Inputs from './Inputs';
+import Tooltips from './Tooltips';
 
 const sections = [
+  Tooltips,
   Inputs,
   Buttons,
   Tables,

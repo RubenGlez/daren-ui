@@ -1,3 +1,12 @@
-export function _bind(...methods) {
-  methods.forEach(method => { this[method] = this[method].bind(this); });
+export function calculatePosition(element) {
+  const windowRect = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+  const elementRect = element.getBoundingClientRect();
+
+  return {
+    top: elementRect.bottom > windowRect.height ? true : false,
+    right: elementRect.right > windowRect.width ? true : false,
+  };
 }

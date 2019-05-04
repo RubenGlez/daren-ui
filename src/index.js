@@ -7,6 +7,8 @@ import Home from './sections/Home';
 import Sandbox from './sections/sandbox/Sandbox';
 import Error from './sections/Error';
 
+import { ReactComponent as Icons } from './assets/icons.svg';
+
 import './index.scss';
 
 
@@ -18,13 +20,16 @@ WebFont.load({
 
 
 const Root = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path={'/'} component={Home} exact={true} />
-      <Route path={'/sandbox'} component={Sandbox} />
-      <Route component={Error} />
-    </Switch>
-  </BrowserRouter>
+  <>
+    <Icons />
+    <BrowserRouter>
+      <Switch>
+        <Route path={'/'} component={Home} exact={true} />
+        <Route path={'/sandbox'} component={Sandbox} />
+        <Route component={Error} />
+      </Switch>
+    </BrowserRouter>
+  </>
 );
 
 

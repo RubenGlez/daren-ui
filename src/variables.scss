@@ -1,35 +1,40 @@
-$neutral_lightest: #F9F9FB;
-$neutral_light: #E4E7EB;
-$neutral_base: #425A70;
-$neutral_dark: #234361;
 
-$white: #FFFFFF;
-$blue: #1070CA;
-$red_dark: #BF0E08;
-$red: #EC4C47;
-$red_light: #FAE2E2;
-$orange: #D9822B;
-$yellow: #F7D154;
-$green_dark: #00783E;
-$green: #47B881;
-$green_light: #D4EEE2;
-$teal: #14B5D0;
-$purple: #735DD0;
+$master_darkest: #0a0a0a;
+$master_darker: #1A1A1A;
+$master_dark: #2C2C2C;
+$master: #626262;
+$master_light: #E6E6E6;
+$master_lighter: #F0F0F0;
+$master_lightest: #FAFAFA;
 
-$bg_1: #F9F9FB;
-$bg_2: #F5F6F7;
-$bg_3: #EDF0F2;
-$bg_4: #E4E7EB;
-$bg_5: #C7CED4;
-$bg_6: #A6B1BB;
-$bg_7: #7B8B9A;
-$bg_8: #66788A;
-$bg_9: #425A70;
-$bg_10: #234361;
+$primary_darker: #2B6A94;
+$primary_dark: #3C93CE;
+$primary: #48B0F7;
+$primary_light: #6DC0F9;
+$primary_lighter: #DAEFFD;
 
-$border: #E4E7EB;
-$border_mutted: #EDF0F2;
+$success_darker: #008b70;
+$success_dark: #00bc97;
+$success: #00e8ba;
+$success_light: #33edc8;
+$success_lighter: #ccfaf1;
 
-$text: #425A70;
-$text_muted: #66788A;
-$text_dark: #234361;
+$warning_darker: #957D32;
+$warning_dark: #CFAE45;
+$warning: #F8D053;
+$warning_light: #F9D975;
+$warning_lighter: #FEF6DD;
+
+$danger_darker: #933432;
+$danger_dark: #CD4945;
+$danger: #F55753;
+$danger_light: #F77975;
+$danger_lighter: #FDDDDD;
+
+$info_darker: #232B31;
+$info_dark: #313B44;
+$info: #3B4752;
+$info_light: #626C75;
+$info_lighter: #D8DADC;
+
+$white: #ffffff;

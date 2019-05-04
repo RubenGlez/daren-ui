@@ -20,9 +20,12 @@
           align-items: center;
           height: 40px;
           text-align: left;
+          text-transform: uppercase;
           padding: 8px 16px;
           white-space: nowrap;
-          background-color: $bg_3;
+          background-color: $master_lighter;
+          border-top: 1px solid $master;
+          border-bottom: 1px solid $master;
         }
       }
     }
@@ -36,7 +39,7 @@
           height: 32px;
           text-align: left;
           padding: 8px 16px;
-          border-bottom: 1px solid $bg_3;
+          border-bottom: 1px solid $master_lighter;
         }
       }
     }

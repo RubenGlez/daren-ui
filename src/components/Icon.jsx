@@ -1,16 +1,13 @@
 import React from 'react';
-import { getIconPath } from '../utils/iconsPaths';
 
-
-const Icon = (props) => (
-  <svg
-    version="1"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    className="dui-icon"
-  >
-    {getIconPath(props.name)}
+const Icon = props => (
+  <svg className={'dui-icon icon-' + props.name}>
+    <use xlinkHref={'#' + props.name}/>
   </svg>
 );
+
+Icon.defaultProps = {
+  name: 'check',
+};
 
 export default Icon;

@@ -18,19 +18,19 @@
       cursor: pointer;
 
       &-active{
-        background-color: $bg_2;
+        background-color: $master_lightest;
       }
     }
   }
 
   &-content{
-    background-color: $bg_2;
+    background-color: $master_lightest;
     padding: 32px;
     overflow: hidden;
     min-height: 100vh;
 
     &-title{
-      font-size: 2em;
+      font-size: 24px;
       margin: 0 0 64px 0;
     }
 
