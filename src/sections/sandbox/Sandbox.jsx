@@ -8,10 +8,10 @@ import Inputs from './Inputs';
 import Tooltips from './Tooltips';
 
 const sections = [
+  Tables,
   Tooltips,
   Inputs,
   Buttons,
-  Tables,
 ];
 
 

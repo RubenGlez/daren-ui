@@ -45,15 +45,40 @@ export default class Table extends Component {
   }
 
 
+  tableHeaderCell = content => (
+    <th className="dui-table-header-row-cell">
+      <div className="dui-table-header-row-cell-content">
+        {content }
+      </div>
+    </th>
+  );
+
+  tableCell = content => (
+    <td className="dui-table-body-row-cell">
+      <div className="dui-table-body-row-cell-content">
+        { content }
+      </div>
+    </td>
+  );
+
+
   render() {
     return (
       <div className="dui-table-container">
         <table className="dui-table" ref={this.tableRef}>
           <thead className="dui-table-header">
-            {this.props.renderTableHeader()}
+            {this.props.header.map(row => (
+              <tr className="dui-table-header-row">
+                {row.map(cell => this.tableHeaderCell(cell))}
+              </tr>
+            ))}
           </thead>
           <tbody className="dui-table-body">
-            {this.props.renderTableRows()}
+            {this.props.body.map(row => (
+              <tr className="dui-table-body-row">
+                {row.map(cell => this.tableCell(cell))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -62,8 +87,8 @@ export default class Table extends Component {
 }
 
 Table.defaultProps = {
-  renderTableHeader: () => {},
-  renderTableRows: () => {},
+  header: [],
+  body: [],
   resizable: false,
   resizerOptions: {
     resizeMode: 'overflow',
