@@ -1,0 +1,46 @@
+@import '../variables.scss';
+
+
+.dui-dropdown{
+  position: relative;
+
+  &-button{
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 16px;
+    background-color: $primary;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: .15s ease-in-out;
+
+    &:hover{
+      background-color: $primary_light;
+    }
+
+    &-text{
+      text-transform: uppercase;
+      color: $white;
+      letter-spacing: 2px;
+      line-height: 14px;
+    }
+
+    .dui-icon{
+      fill: $white;
+      width: 20px;
+      height: 20px;
+      margin: 0 0 0 8px;
+    }
+  }
+
+  &-panel{
+    position: absolute;
+    top: 44px;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: $white;
+    border: 1px solid $master_light;
+    border-radius: 2px;
+  }
+}
