@@ -2,6 +2,7 @@
 
 .dui-input{
   position: relative;
+  width: 100%;
 
   &-label{
     position: absolute;
@@ -11,10 +12,11 @@
     align-items: center;
     height: 16px;
     font-size: 14px;
-    background-color: $white;
+    background: linear-gradient(0, $white 50%, transparent 50%);
     padding: 0 4px;
-    border-radius: 2px;
+    border-radius: map-get($radius, small);
     color: $master;
+    pointer-events: none;
     transition: 0.1s ease-in-out;
   }
 
@@ -24,26 +26,18 @@
     height: 40px;
     background-color: $white;
     border: 1px solid $master_light;
-    border-radius: 4px;
+    border-radius: map-get($radius, normal);
     outline: 0;
     font-size: 14px;
     color: $master;
     padding: 0 8px;
-  }
 
-  &-clear{
-    position: absolute;
-    right: 8px;
-    top: 8px;
-
-    .dui-icon{
-      width: 24px;
-      height: 24px;
-      fill: $master_light;
+    &::placeholder{
+      opacity: 0;
     }
   }
 
-  &-message{
+  &-error{
     position: absolute;
     padding: 0 8px;
     margin-top: 4px;
@@ -51,34 +45,73 @@
     line-height: 14px;
     color: $danger;
   }
-}
 
-.dui-input-value{
-  .dui-input-label{
-    top: -6px;
-    font-size: 12px;
-    height: 12px;
-  }
-}
-
-.dui-input-focus{
-  .dui-input-label{
-    top: -6px;
-    font-size: 12px;
-    height: 12px;
-    color: $primary;
+  .dui-icon{
+    position: absolute;
+    left: 8px;
+    right: auto;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    fill: $master;
+    pointer-events: none;
+    &-right{
+      left: auto;
+      right: 8px;
+    }
   }
 
-  .dui-input-input{
-    border-color: $primary;
-  }
-}
+  // modificadores
+  &-has{
+    &-error{
+      .dui-input-label{
+        color: $danger;
+      }
+      .dui-input-input{
+        border-color: $danger;
+      }
+    }
+    &-value{
+      .dui-input-label{
+        top: -6px;
+        font-size: 12px;
+        height: 12px;
+      }
+      .dui-input-input{
+        &::placeholder{
+          opacity: 0;
+        }
+      }
+    }
+    &-focus{
+      .dui-input-label{
+        top: -6px;
+        font-size: 12px;
+        height: 12px;
+        color: $primary;
+      }
+      .dui-input-input{
+        border-color: $primary;
 
-.dui-input-error{
-  .dui-input-label{
-    color: $danger;
-  }
-  .dui-input-input{
-    border-color: $danger;
+        &::placeholder{
+          opacity: 0.6;
+        }
+      }
+    }
+    &-icon{
+      &-left{
+        .dui-input-label{
+          left: 32px;
+        }
+        .dui-input-input{
+          padding-left: 32px;
+        }
+      }
+      &-right{
+        .dui-input-input{
+          padding-right: 32px;
+        }
+      }
+    }
   }
 }

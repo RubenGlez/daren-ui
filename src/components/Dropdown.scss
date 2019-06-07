@@ -10,7 +10,7 @@
     height: 40px;
     padding: 0 16px;
     background-color: $primary;
-    border-radius: 2px;
+    border-radius: map-get($radius, small);
     cursor: pointer;
     transition: .15s ease-in-out;
 
@@ -37,10 +37,35 @@
     position: absolute;
     top: 44px;
     left: 0;
-    display: grid;
-    grid-template-columns: 1fr;
     background-color: $white;
-    border: 1px solid $master_light;
-    border-radius: 2px;
+    border-radius: map-get($radius, small);
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+
+    &-right{
+      left: auto;
+      right: 0;
+    }
+
+    &-top{
+      top: auto;
+      bottom: 44px;
+    }
+
+    &-links{
+      a{
+        display: flex;
+        align-items: center;
+        height: 40px;
+        color: $master;
+        padding: 0 16px;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color .15s ease-in-out;
+
+        &:hover{
+          background-color: $master_lighter;
+        }
+      }
+    }
   }
 }

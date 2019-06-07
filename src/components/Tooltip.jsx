@@ -8,19 +8,21 @@ import './Tooltip.scss';
 export default class Tooltip extends Component {
   constructor(props) {
     super(props);
-    this._messageRef = React.createRef();
     this.state = {
       visible: false,
       top: false,
       right: false,
     };
+    this._messageRef = React.createRef();
+    this._tooltipRef = React.createRef();
   }
 
   componentDidMount() {
     const message = this._messageRef.current;
+    const messagePosition = calculatePosition(message);
     this.setState({
-      top: calculatePosition(message).top,
-      right: calculatePosition(message).right,
+      top: messagePosition.top,
+      right: messagePosition.right,
     });
 
     this._onMouseEnter = this._onMouseEnter.bind(this);
@@ -28,24 +30,28 @@ export default class Tooltip extends Component {
   }
 
   _onMouseEnter(e) {
-    this.setState({
-      visible: true,
-    });
+    const { clientX, clientY } = e;
+    const tooltip = this._tooltipRef.current;
+    const tooltipRect = tooltip.getBoundingClientRect();
+    if (clientY > tooltipRect.top - 1 && clientY < tooltipRect.bottom &&
+      clientX > tooltipRect.left - 1 && clientX < tooltipRect.right) {
+      this.setState({ visible: true });
+    }
   }
 
-  _onMouseLeave() {
-    this.setState({
-      visible: false,
-    });
+  _onMouseLeave(e) {
+    this.setState({ visible: false });
   }
 
 
   render() {
     return (
       <div
+        ref={this._tooltipRef}
         className="dui-tooltip"
         onMouseEnter={this._onMouseEnter}
         onMouseLeave={this._onMouseLeave}>
+
         {this.props.children}
 
         <div
@@ -58,6 +64,7 @@ export default class Tooltip extends Component {
           })}>
           {this.props.message}
         </div>
+
       </div>
     );
   }

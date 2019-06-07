@@ -12,19 +12,20 @@ export default class Table extends Component {
   }
 
   componentDidMount() {
-    if (this.props.resizable) this.enableResize();
+    if (!this.props.isLoading && this.props.resizable) this.enableResize();
   }
 
-  componentWillUpdate() {
-    if (this.props.resizable) this.disableResize();
+  UNSAFE_componentWillUpdate() {
+    if (!this.props.isLoading && this.props.resizable) this.disableResize();
   }
 
   componentDidUpdate() {
-    if (this.props.resizable) this.enableResize();
+    // Determinar cuando es necesario
+    if (!this.props.isLoading && this.props.resizable) this.enableResize();
   }
 
   componentWillUnmount() {
-    if (this.props.resizable) this.disableResize();
+    if (!this.props.isLoading && this.props.resizable) this.disableResize();
   }
 
 
@@ -44,11 +45,10 @@ export default class Table extends Component {
     if (this.resizer) this.resizer.reset({ disable: true });
   }
 
-
   tableHeaderCell = content => (
     <th className="dui-table-header-row-cell">
       <div className="dui-table-header-row-cell-content">
-        {content }
+        { content }
       </div>
     </th>
   );
@@ -63,7 +63,9 @@ export default class Table extends Component {
 
 
   render() {
-    return (
+    return this.props.isLoading ? (
+      <div>Cargando...</div>
+    ) : (
       <div className="dui-table-container">
         <table className="dui-table" ref={this.tableRef}>
           <thead className="dui-table-header">
@@ -75,8 +77,8 @@ export default class Table extends Component {
           </thead>
           <tbody className="dui-table-body">
             {this.props.body.map(row => (
-              <tr className="dui-table-body-row">
-                {row.map(cell => this.tableCell(cell))}
+              <tr className="dui-table-body-row" key={ row.key }>
+                {Object.keys(row).map(cell => cell !== 'key' ? this.tableCell(row[cell]) : null)}
               </tr>
             ))}
           </tbody>
@@ -89,6 +91,7 @@ export default class Table extends Component {
 Table.defaultProps = {
   header: [],
   body: [],
+  isLoading: false,
   resizable: false,
   resizerOptions: {
     resizeMode: 'overflow',

@@ -5,7 +5,7 @@ export default class Error extends Component {
   render() {
     return (
       <div className="dui-error">
-        Error!
+        pero que ha pachao!
       </div>
     );
   }

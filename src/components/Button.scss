@@ -7,7 +7,7 @@
   height: 40px;
   padding: 0 16px;
   background-color: $primary;
-  border-radius: 2px;
+  border-radius: map-get($radius, small);
   cursor: pointer;
   transition: .15s ease-in-out;
 

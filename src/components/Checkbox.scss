@@ -1,0 +1,52 @@
+@import '../variables.scss';
+
+
+.dui-checkbox{
+  display: flex;
+  align-items: center;
+
+  &-check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $master_light;
+    background-color: $white;
+    border-radius: map-get($radius, small);
+    transition: background-color 0.15s ease-in-out;
+
+    &-icon{
+      transition: transform 0.15s ease-in-out 0.05s;
+      fill: $white;
+      width: 16px;
+      height: 16px;
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+
+  &-input{
+    width: 28px;
+    height: 20px;
+    margin: 0;
+    position: absolute;
+    opacity: 0;
+  }
+
+  &-label{
+    margin-left: 8px;
+  }
+
+  // Modificadores
+  &-active{
+    .dui-checkbox-check{
+      background-color: $primary;
+      border-color: $primary;
+      &-icon{
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+}

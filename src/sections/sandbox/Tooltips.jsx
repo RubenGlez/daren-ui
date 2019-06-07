@@ -3,9 +3,22 @@ import './Sandbox.scss';
 
 import Button from '../../components/Button';
 import Tooltip from '../../components/Tooltip';
+import Dropdown from '../../components/Dropdown';
 
 
 export default class Tooltips extends Component {
+  renderDropdown() {
+    return (
+      <div className="dui-dropdown-panel-links">
+        <a href="#">Un enlace</a>
+        <a href="#">Un enlace</a>
+        <a href="#">Un enlace</a>
+        <a href="#">Un enlace super largo para ver que pasa</a>
+      </div>
+    );
+  }
+
+
   render() {
     return (
       <Fragment>
@@ -18,6 +31,13 @@ export default class Tooltips extends Component {
             <Button
               text={'default'}
               icon={'check'}
+            />
+          </Tooltip>
+
+          <Tooltip message={'Hola soy el contenido del tooltip'}>
+            <Dropdown
+              text={'Ejemplo'}
+              renderDropdown={this.renderDropdown}
             />
           </Tooltip>
 

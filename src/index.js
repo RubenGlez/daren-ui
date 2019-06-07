@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import WebFont from 'webfontloader';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -20,7 +20,7 @@ WebFont.load({
 
 
 const Root = () => (
-  <>
+  <Fragment>
     <Icons />
     <BrowserRouter>
       <Switch>
@@ -29,7 +29,7 @@ const Root = () => (
         <Route component={Error} />
       </Switch>
     </BrowserRouter>
-  </>
+  </Fragment>
 );
 
 

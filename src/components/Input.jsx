@@ -1,94 +1,110 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
+import Icon from './Icon';
 
 import './Input.scss';
 
 
-export default class Input extends Component {
+export default class Input extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._onClick = this._onClick.bind(this);
-    this._onChange = this._onChange.bind(this);
-    this._onFocus = this._onFocus.bind(this);
-    this._onBlur = this._onBlur.bind(this);
-    this._onClear = this._onClear.bind(this);
+    [
+      '_onClick',
+      '_onChange',
+      '_onFocus',
+      '_onBlur',
+      '_onKeyDown',
+    ].forEach(method => {this[method] = this[method].bind(this);});
 
-    this.state = {
-      isFocus: false,
-    };
-
-    this._inputRef = React.createRef();
+    this.state = { isFocus: false };
   }
+
+  _getValueFromEvent(event) {
+    return event.target.value !== null && event.target.value !== undefined ? event.target.value : '';
+  }
+
+  _getApiArguments(event) {
+    return [event, this._getValueFromEvent(event), this.props.fieldId];
+  }
+
 
   _onClick(e) {
     e.preventDefault();
-    if (e.target.tagName === 'LABEL') this._inputRef.current.focus();
-    // e.target.select();
-    if (this.props.onClick) this.props.onClick(e);
+    if (this.props.onClick) this.props.onClick(...this._getApiArguments(e));
   }
 
   _onChange(e) {
     e.preventDefault();
-    const value = e.target.value;
-    const fieldId = e.target.name;
-    if (this.props.onChange) this.props.onChange(e, value, fieldId);
+    if (this.props.onChange) this.props.onChange(...this._getApiArguments(e));
   }
 
   _onFocus(e) {
     e.preventDefault();
-    this.setState({ isFocus: true });
-
-    const value = e.target.value;
-    const fieldId = e.target.name;
-    if (this.props.onFocus) this.props.onFocus(e, value, fieldId);
+    this.setState({ isFocus: true }, () => {
+      if (this.props.onFocus) this.props.onFocus(...this._getApiArguments(e));
+    });
   }
 
   _onBlur(e) {
     e.preventDefault();
-    this.setState({ isFocus: false });
-
-    const value = e.target.value;
-    const fieldId = e.target.name;
-    if (this.props.onBlur) this.props.onBlur(e, value, fieldId);
+    this.setState({ isFocus: false }, () => {
+      if (this.props.onBlur) this.props.onBlur(...this._getApiArguments(e));
+    });
   }
 
-  _onClear(e) {
-    const value = '';
-    const fieldId = this._inputRef.current.name;
-    if (this.props.onChange) this.props.onChange(e, value, fieldId);
+  _onKeyDown(e) {
+    if (this.props.onKeyDown) this.props.onKeyDown(...this._getApiArguments(e));
   }
 
+  _onKeyUp(e) {
+    if (this.props.onKeyUp) this.props.onKeyUp(...this._getApiArguments(e));
+  }
 
   render() {
     return (
       <div className={classNames({
         'dui-input': true,
-        'dui-input-value': this.props.value,
-        'dui-input-focus': this.state.isFocus,
-        'dui-input-error': this.props.error,
+        'dui-input-has-value': this.props.value,
+        'dui-input-has-focus': this.state.isFocus,
+        'dui-input-has-error': this.props.error,
+        'dui-input-has-icon-left': this.props.iconLeft,
+        'dui-input-has-icon-right': this.props.iconRight,
       })}>
 
-        <label
-          htmlFor={this.props.fieldId}
-          className="dui-input-label"
-          onClick={this._onClick}>
-          {this.props.label}
-        </label>
+        {this.props.label &&
+          <label
+            htmlFor={this.props.fieldId}
+            className="dui-input-label">
+            {this.props.label}
+          </label>
+        }
+
+        {this.props.iconLeft &&
+          <Icon name={this.props.iconLeft} className="dui-icon-left" />
+        }
 
         <input
-          ref={this._inputRef}
           type="text"
-          name={this.props.fieldId}
+          id={this.props.fieldId}
           value={this.props.value}
+          placeholder={this.props.placeholder}
           className="dui-input-input"
           onClick={this._onClick}
           onChange={this._onChange}
           onFocus={this._onFocus}
-          onBlur={this._onBlur} />
+          onBlur={this._onBlur}
+          onKeyDown={this._onKeyDown}
+          disabled={this.props.isDisabled}
+          readOnly={this.props.isReadOnly}
+          tabIndex={this.props.tabIndex} />
+
+        {this.props.iconRight &&
+          <Icon name={this.props.iconRight} className="dui-icon-right" />
+        }
 
         {this.props.error &&
-          <div className="dui-input-message">{this.props.error}</div>
+          <div className="dui-input-error">{this.props.error}</div>
         }
 
       </div>
@@ -101,8 +117,18 @@ Input.defaultProps = {
   fieldId: '',
   label: '',
   value: '',
-  onClick: () => {},
-  onChange: () => {},
-  onBlur: () => {},
-  error: false,
+  placeholder: '',
+  iconLeft: null,
+  iconRight: null,
+  error: null,
+  isDisabled: false,
+  isReadOnly: false,
+  tabIndex: 0,
+
+  onClick: null,
+  onFocus: null,
+  onChange: null,
+  onBlur: null,
+  onKeyDown: null,
+  onKeyUp: null,
 };

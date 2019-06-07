@@ -6,12 +6,16 @@ import Buttons from './Buttons';
 import Tables from './Tables';
 import Inputs from './Inputs';
 import Tooltips from './Tooltips';
+import Dropdowns from './Dropdowns';
+import Listboxes from './Listboxes';
 
 const sections = [
-  Buttons,
-  Tables,
-  Tooltips,
   Inputs,
+  Listboxes,
+  Tooltips,
+  Tables,
+  Dropdowns,
+  Buttons,
 ];
 
 

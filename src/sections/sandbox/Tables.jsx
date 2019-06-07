@@ -5,17 +5,30 @@ import Table from '../../components/Table';
 
 
 export default class Tables extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(json => this.setState({items: json}));
+  }
+
   render() {
     const tableHeader = [
-      ['cabecera uno', 'cabecera dos', 'cabecera tres', 'cabecera cuatro'],
+      ['Nombre', 'Email', 'Phone', 'Website'],
     ];
-    const tableBody = [
-      ['celda uno', 'celda dos', 'celda tres', 'celda cuatro'],
-      ['celda uno', 'celda dos', 'celda tres', 'celda cuatro'],
-      ['celda uno', 'celda dos', 'celda tres', 'celda cuatro'],
-      ['celda uno', 'celda dos', 'celda tres', 'celda cuatro'],
-      ['celda uno', 'celda dos', 'celda tres', 'celda cuatro'],
-    ];
+    const tableBody = this.state.items.map(item => ({
+      key: item.id,
+      name: item.name,
+      email: item.email,
+      phone: item.phone,
+      website: item.website,
+    }));
 
     return (
       <Fragment>

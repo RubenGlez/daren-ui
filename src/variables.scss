@@ -1,4 +1,4 @@
-
+// Colors
 $master_darkest: #0a0a0a;
 $master_darker: #1A1A1A;
 $master_dark: #2C2C2C;
@@ -38,3 +38,18 @@ $info_light: #626C75;
 $info_lighter: #D8DADC;
 
 $white: #ffffff;
+$black: #000000;
+
+
+// Z-index
+$z-index: (
+  base: 0,
+);
+
+
+// Border-radius
+$radius: (
+  big: 8px,
+  normal: 4px,
+  small: 2px,
+);

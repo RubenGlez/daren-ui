@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import './Sandbox.scss';
 
 import Button from '../../components/Button';
-import Dropdown from '../../components/Dropdown';
 
 export default class Buttons extends Component {
   constructor(props) {
@@ -14,30 +13,10 @@ export default class Buttons extends Component {
     alert('Has pulsado un botón');
   }
 
-  renderDropdown() {
-    return (
-      <>
-        <a href="#">Un enlace</a>
-        <a href="#">Un enlace</a>
-        <a href="#">Un enlace</a>
-        <a href="#">Un enlace</a>
-      </>
-    );
-  }
-
-
   render() {
     return (
       <Fragment>
         <div className="dui-sandbox-content-title">Button.jsx</div>
-
-        <div className="dui-sandbox-content-subtitle">Dropdown</div>
-        <div className="dui-sandbox-content-row">
-          <Dropdown
-            text={'Ejemplo'}
-            renderDropdown={this.renderDropdown}
-          />
-        </div>
 
         <div className="dui-sandbox-content-subtitle">Button - Templates</div>
         <div className="dui-sandbox-content-row">
