@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import keycode from 'keycode';
 import classNames from 'classnames';
 import Input from './Input';
-
 import './Select.scss';
 
-// TODO: Hacer que se puedan seleccionar multiples items
 
 export default class Select extends Component {
   constructor(props) {

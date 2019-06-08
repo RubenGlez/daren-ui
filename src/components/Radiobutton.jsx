@@ -30,6 +30,7 @@ export default class Radiobutton extends PureComponent {
               className={classNames({
                 'dui-radiobutton-option': true,
                 'dui-radiobutton-option-active': isChecked,
+                'dui-radiobutton-option-stacked': this.props.isStacked,
               })}>
               <div className="dui-radiobutton-option-radio">
                 <div className="dui-radiobutton-option-radio-dot" />
@@ -61,5 +62,6 @@ Radiobutton.defaultProps = {
   fieldId: '',
   value: '',
   options: [], // {field: XXX, value: XXX}
+  isStacked: false,
   onChange: null,
 };
