@@ -1,6 +1,6 @@
 @import '../variables.scss';
 
-.dui-listbox{
+.dui-select{
   position: relative;
   width: 100%;
 
@@ -28,7 +28,8 @@
     overflow-x: hidden;
     background-color: $white;
     border-radius: map-get($radius, small);
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    z-index: map-get($z-index, dropdown);
+    box-shadow: $shadow_dropdown;
 
     &-option{
       display: flex;

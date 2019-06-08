@@ -1,0 +1,57 @@
+@import '../variables.scss';
+
+
+.dui-radiobutton{
+  &-option{
+    display: flex;
+    align-items: center;
+    height: 32px;
+
+    &-radio{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $master_light;
+      border-radius: 50%;
+      background-color: $white;
+      transition: background-color 0.15s ease-in-out;
+
+      &-dot{
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        opacity: 0;
+        background-color: $white;
+        transform: scale(0);
+        transition: transform 0.15s ease-in-out 0.05s;
+      }
+    }
+    &-input{
+      width: 28px;
+      height: 20px;
+      margin: 0;
+      position: absolute;
+      cursor: pointer;
+      opacity: 0;
+    }
+    &-label{
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    // Modificadores
+    &-active{
+      .dui-radiobutton-option{
+        &-radio{
+          background-color: $primary;
+          &-dot{
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

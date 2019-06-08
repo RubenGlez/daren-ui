@@ -7,11 +7,9 @@ import Tables from './Tables';
 import Inputs from './Inputs';
 import Tooltips from './Tooltips';
 import Dropdowns from './Dropdowns';
-import Listboxes from './Listboxes';
 
 const sections = [
   Inputs,
-  Listboxes,
   Tooltips,
   Tables,
   Dropdowns,

@@ -3,10 +3,11 @@ import keycode from 'keycode';
 import classNames from 'classnames';
 import Input from './Input';
 
-import './Listbox.scss';
+import './Select.scss';
 
+// TODO: Hacer que se puedan seleccionar multiples items
 
-export default class Listbox extends Component {
+export default class Select extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,9 +24,9 @@ export default class Listbox extends Component {
     ].forEach(method => {this[method] = this[method].bind(this);});
 
     this._optionsRef = React.createRef();
-    this._listboxRef = React.createRef();
+    this._selectRef = React.createRef();
 
-    this._activeClassname = 'dui-listbox-options-option-active';
+    this._activeClassname = 'dui-select-options-option-active';
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ export default class Listbox extends Component {
   }
 
   _onClickDocument(e) {
-    if (this._listboxRef.current.contains(e.target)) return;
+    if (this._selectRef.current.contains(e.target)) return;
     this.setState({ isActive: false });
   }
 
@@ -45,7 +46,7 @@ export default class Listbox extends Component {
     this.setState({ isActive: true }, () => {
       const activeOption = this._optionsRef.current.querySelector(`.${this._activeClassname}`);
       if (!activeOption) {
-        const firstOption = this._optionsRef.current.querySelector('.dui-listbox-options-option');
+        const firstOption = this._optionsRef.current.querySelector('.dui-select-options-option');
         firstOption.classList.add(this._activeClassname);
       }
     });
@@ -56,6 +57,7 @@ export default class Listbox extends Component {
     const currentSelection = this._optionsRef.current.querySelector(`.${this._activeClassname}`);
 
     if (keycode(e) === 'down') {
+      e.preventDefault();
       const nextElement = currentSelection.nextElementSibling;
       if (nextElement) {
         nextElement.classList.add(this._activeClassname);
@@ -64,6 +66,7 @@ export default class Listbox extends Component {
       }
       currentSelection.classList.remove(this._activeClassname);
     } else if (keycode(e) === 'up') {
+      e.preventDefault();
       const prevElement = currentSelection.previousElementSibling;
       if (prevElement) {
         prevElement.classList.add(this._activeClassname);
@@ -78,8 +81,8 @@ export default class Listbox extends Component {
     }
   }
 
-  _onClickOption(e, value, fieldId) {
-    if (this.props.onChange) this.props.onChange(e, value, fieldId);
+  _onClickOption(e, value) {
+    if (this.props.onChange) this.props.onChange(e, value, this.props.fieldId);
     this.setState({ isActive: false });
   }
 
@@ -100,9 +103,9 @@ export default class Listbox extends Component {
 
     return (
       <div
-        ref={this._listboxRef}
-        className="dui-listbox">
-        <div className="dui-listbox-input">
+        ref={this._selectRef}
+        className="dui-select">
+        <div className="dui-select-input">
           <Input
             fieldId={this.props.fieldId}
             value={labelValue}
@@ -118,16 +121,16 @@ export default class Listbox extends Component {
         {this.props.options.length > 0 && this.state.isActive &&
           <div
             ref={this._optionsRef}
-            className="dui-listbox-options">
+            className="dui-select-options">
             {this.props.options.map(option => {
               return (
                 <div
                   key={option.value}
                   className={classNames({
-                    'dui-listbox-options-option': true,
-                    'dui-listbox-options-option-selected': option.value === this.props.value,
+                    'dui-select-options-option': true,
+                    'dui-select-options-option-selected': option.value === this.props.value,
                   })}
-                  onClick={e => this._onClickOption(e, option.value, option.label)}
+                  onClick={e => this._onClickOption(e, option.value)}
                   onMouseEnter={this._onMouseEnter}>
                   {option.label}
                 </div>
@@ -141,7 +144,7 @@ export default class Listbox extends Component {
 }
 
 
-Listbox.defaultProps = {
+Select.defaultProps = {
   fieldId: '',
   value: '',
   placeholder: '',

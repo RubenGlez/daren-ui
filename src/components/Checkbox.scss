@@ -4,6 +4,7 @@
 .dui-checkbox{
   display: flex;
   align-items: center;
+  height: 32px;
 
   &-check{
     display: flex;
@@ -17,12 +18,12 @@
     transition: background-color 0.15s ease-in-out;
 
     &-icon{
-      transition: transform 0.15s ease-in-out 0.05s;
       fill: $white;
       width: 16px;
       height: 16px;
       opacity: 0;
       transform: scale(0);
+      transition: transform 0.15s ease-in-out 0.05s;
     }
   }
 
@@ -31,11 +32,13 @@
     height: 20px;
     margin: 0;
     position: absolute;
+    cursor: pointer;
     opacity: 0;
   }
 
   &-label{
     margin-left: 8px;
+    cursor: pointer;
   }
 
   // Modificadores

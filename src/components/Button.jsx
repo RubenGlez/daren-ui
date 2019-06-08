@@ -21,20 +21,10 @@ export default function Button({
   });
 
 
-  return isDisabled ? (
-    <div
-      className={buttonClassNames}>
-      {icon &&
-        <Icon name={icon} />
-      }
-      {text &&
-        <div className="dui-button-text">{text}</div>
-      }
-    </div>
-  ) : (
+  return (
     <div
       className={buttonClassNames}
-      onClick={onClick}>
+      onClick={isDisabled ? null : onClick}>
       {icon &&
         <Icon name={icon} />
       }

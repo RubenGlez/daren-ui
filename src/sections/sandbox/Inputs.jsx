@@ -3,6 +3,8 @@ import './Sandbox.scss';
 
 import Input from '../../components/Input';
 import Checkbox from '../../components/Checkbox';
+import Radiobutton from '../../components/Radiobutton';
+import Select from '../../components/Select';
 
 
 export default class Inputs extends Component {
@@ -16,9 +18,21 @@ export default class Inputs extends Component {
       example_input4: '',
       example_input5: '',
       check1: false,
+      radio1: 1,
+      select1: '',
+      options: [],
     };
 
     this._onChange = this._onChange.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/albums')
+      .then(response => response.json())
+      .then(json => {
+        const options = json.map(option => ({value: option.id, label: option.title}));
+        this.setState({options});
+      });
   }
 
   _onChange(e, value, fieldId) {
@@ -31,6 +45,33 @@ export default class Inputs extends Component {
       <Fragment>
         <div className="dui-sandbox-content-title">Input.jsx</div>
 
+        <div className="dui-sandbox-content-subtitle">Select</div>
+        <div className="dui-sandbox-content-row">
+          <Select
+            fieldId={'select1'}
+            value={this.state.select1}
+            placeholder={'Elige una opción'}
+            label={'Label'}
+            options={this.state.options}
+            onChange={this._onChange}
+          />
+        </div>
+
+        <div className="dui-sandbox-content-subtitle">Radiobutton</div>
+        <div className="dui-sandbox-content-row">
+          <Radiobutton
+            fieldId={'radio1'}
+            label={'este es el label'}
+            value={parseInt(this.state.radio1, 10)}
+            options={[
+              {value: 1, label: 'Uno'},
+              {value: 2, label: 'Dos'},
+              {value: 3, label: 'Tres'},
+            ]}
+            onChange={this._onChange}
+          />
+        </div>
+
         <div className="dui-sandbox-content-subtitle">Checkbox</div>
         <div className="dui-sandbox-content-row">
           <Checkbox
@@ -41,7 +82,7 @@ export default class Inputs extends Component {
           />
         </div>
 
-        <div className="dui-sandbox-content-subtitle">Input - Icons</div>
+        <div className="dui-sandbox-content-subtitle">Input</div>
         <div className="dui-sandbox-content-row">
           <Input
             fieldId={'example_input5'}
@@ -51,19 +92,11 @@ export default class Inputs extends Component {
             iconLeft={'flag'}
             iconRight={'search'}
           />
-        </div>
-
-        <div className="dui-sandbox-content-subtitle">Input - No label</div>
-        <div className="dui-sandbox-content-row">
           <Input
             fieldId={'example_input4'}
             value={this.state.example_input4}
             onChange={this._onChange}
           />
-        </div>
-
-        <div className="dui-sandbox-content-subtitle">Input - Default</div>
-        <div className="dui-sandbox-content-row">
           <Input
             fieldId={'example_input1'}
             placeholder={'Placeholder'}
@@ -71,10 +104,6 @@ export default class Inputs extends Component {
             value={this.state.example_input1}
             onChange={this._onChange}
           />
-        </div>
-
-        <div className="dui-sandbox-content-subtitle">Input - With value</div>
-        <div className="dui-sandbox-content-row">
           <Input
             fieldId={'example_input2'}
             label={'Label'}
@@ -82,10 +111,6 @@ export default class Inputs extends Component {
             onChange={this._onChange}
             isClearable={true}
           />
-        </div>
-
-        <div className="dui-sandbox-content-subtitle">Input - Error</div>
-        <div className="dui-sandbox-content-row">
           <Input
             fieldId={'example_input3'}
             label={'Label'}
