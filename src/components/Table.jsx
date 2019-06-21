@@ -1,99 +1,15 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './Table.scss';
 
 import ColumnResizer from 'column-resizer';
 
 
-export default class Table extends Component {
-  constructor(props) {
-    super(props);
-
-    this.tableRef = React.createRef();
-  }
-
-  componentDidMount() {
-    if (!this.props.isLoading && this.props.resizable) this.enableResize();
-  }
-
-  UNSAFE_componentWillUpdate() {
-    if (!this.props.isLoading && this.props.resizable) this.disableResize();
-  }
-
-  componentDidUpdate() {
-    // Determinar cuando es necesario
-    if (!this.props.isLoading && this.props.resizable) this.enableResize();
-  }
-
-  componentWillUnmount() {
-    if (!this.props.isLoading && this.props.resizable) this.disableResize();
-  }
-
-
-  enableResize() {
-    const options = this.props.resizerOptions;
-    if (!this.resizer) {
-      this.resizer = new ColumnResizer(
-        this.tableRef.current,
-        options
-      );
-    } else {
-      this.resizer.reset(options);
-    }
-  }
-
-  disableResize() {
-    if (this.resizer) this.resizer.reset({ disable: true });
-  }
-
-  tableHeaderCell = content => (
-    <th className="dui-table-header-row-cell">
-      <div className="dui-table-header-row-cell-content">
-        { content }
-      </div>
-    </th>
-  );
-
-  tableCell = content => (
-    <td className="dui-table-body-row-cell">
-      <div className="dui-table-body-row-cell-content">
-        { content }
-      </div>
-    </td>
-  );
-
-
-  render() {
-    return this.props.isLoading ? (
-      <div>Cargando...</div>
-    ) : (
-      <div className="dui-table-container">
-        <table className="dui-table" ref={this.tableRef}>
-          <thead className="dui-table-header">
-            {this.props.header.map(row => (
-              <tr className="dui-table-header-row">
-                {row.map(cell => this.tableHeaderCell(cell))}
-              </tr>
-            ))}
-          </thead>
-          <tbody className="dui-table-body">
-            {this.props.body.map(row => (
-              <tr className="dui-table-body-row" key={ row.key }>
-                {Object.keys(row).map(cell => cell !== 'key' ? this.tableCell(row[cell]) : null)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
-
-Table.defaultProps = {
-  header: [],
-  body: [],
-  isLoading: false,
-  resizable: false,
-  resizerOptions: {
+export default function Table({
+  header = [],
+  body = [],
+  isLoading = false,
+  resizable = false,
+  resizerOptions = {
     resizeMode: 'overflow',
     disable: false,
     disabledColumns: [],
@@ -112,4 +28,63 @@ Table.defaultProps = {
     widths: [],
     serialize: true,
   },
-};
+}) {
+  const tableRef = useRef();
+  let resizer = null;
+
+  function enableResize() {
+    const options = resizerOptions;
+    if (!resizer) {
+      resizer = new ColumnResizer(tableRef.current, options);
+    } else {
+      resizer.reset(options);
+    }
+  }
+
+  function disableResize() {
+    if (resizer) resizer.reset({ disable: true });
+  }
+
+  useEffect(() => {
+    if (!isLoading && resizable) enableResize();
+    return () => {
+      if (!isLoading && resizable) disableResize();
+    };
+  }, [isLoading, resizable]);
+
+
+  return isLoading ? (
+    <div>Cargando...</div>
+  ) : (
+    <div className="dui-table-container">
+      <table className="dui-table" ref={tableRef}>
+        <thead className="dui-table-header">
+          {header.map(row => (
+            <tr className="dui-table-header-row">
+              {row.map(cell => (
+                <th className="dui-table-header-row-cell">
+                  <div className="dui-table-header-row-cell-content">
+                    { cell }
+                  </div>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody className="dui-table-body">
+          {body.map(row => (
+            <tr className="dui-table-body-row" key={ row.key }>
+              {Object.keys(row).map(cell => cell !== 'key' ?
+                <td className="dui-table-body-row-cell">
+                  <div className="dui-table-body-row-cell-content">
+                    { row[cell] }
+                  </div>
+                </td> : null
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

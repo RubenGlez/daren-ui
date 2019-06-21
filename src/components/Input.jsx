@@ -1,134 +1,114 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import Icon from './Icon';
-
 import './Input.scss';
 
 
-export default class Input extends PureComponent {
-  constructor(props) {
-    super(props);
+export default function Input({
+  fieldId = '',
+  label = '',
+  value = '',
+  placeholder = '',
+  iconLeft = null,
+  iconRight = null,
+  error = null,
+  isDisabled = false,
+  isReadOnly = false,
+  tabIndex = 0,
+  onClick = null,
+  onFocus = null,
+  onChange = null,
+  onBlur = null,
+  onKeyDown = null,
+  onKeyUp = null,
+}) {
+  const [isFocus, setIsFocus] = useState(false);
 
-    [
-      '_onClick',
-      '_onChange',
-      '_onFocus',
-      '_onBlur',
-      '_onKeyDown',
-    ].forEach(method => {this[method] = this[method].bind(this);});
-
-    this.state = { isFocus: false };
-  }
-
-  _getValueFromEvent(event) {
+  function _getValueFromEvent(event) {
     return event.target.value !== null && event.target.value !== undefined ? event.target.value : '';
   }
 
-  _getApiArguments(event) {
-    return [event, this._getValueFromEvent(event), this.props.fieldId];
+  function _getApiArguments(event) {
+    return [event, _getValueFromEvent(event), fieldId];
   }
 
 
-  _onClick(e) {
+  function _onClick(e) {
     e.preventDefault();
-    if (this.props.onClick) this.props.onClick(...this._getApiArguments(e));
+    if (onClick) onClick(..._getApiArguments(e));
   }
 
-  _onChange(e) {
+  function _onChange(e) {
     e.preventDefault();
-    if (this.props.onChange) this.props.onChange(...this._getApiArguments(e));
+    if (onChange) onChange(..._getApiArguments(e));
   }
 
-  _onFocus(e) {
+  function _onFocus(e) {
     e.preventDefault();
-    this.setState({ isFocus: true }, () => {
-      if (this.props.onFocus) this.props.onFocus(...this._getApiArguments(e));
-    });
+    setIsFocus(true);
+    if (onFocus) onFocus(..._getApiArguments(e));
   }
 
-  _onBlur(e) {
+  function _onBlur(e) {
     e.preventDefault();
-    this.setState({ isFocus: false }, () => {
-      if (this.props.onBlur) this.props.onBlur(...this._getApiArguments(e));
-    });
+    setIsFocus(false);
+    if (onBlur) onBlur(..._getApiArguments(e));
   }
 
-  _onKeyDown(e) {
-    if (this.props.onKeyDown) this.props.onKeyDown(...this._getApiArguments(e));
+  function _onKeyDown(e) {
+    if (onKeyDown) onKeyDown(..._getApiArguments(e));
   }
 
-  _onKeyUp(e) {
-    if (this.props.onKeyUp) this.props.onKeyUp(...this._getApiArguments(e));
+  function _onKeyUp(e) {
+    if (onKeyUp) onKeyUp(..._getApiArguments(e));
   }
 
-  render() {
-    return (
-      <div className={classNames({
-        'dui-input': true,
-        'dui-input-has-value': this.props.value,
-        'dui-input-has-focus': this.state.isFocus,
-        'dui-input-has-error': this.props.error,
-        'dui-input-has-icon-left': this.props.iconLeft,
-        'dui-input-has-icon-right': this.props.iconRight,
-      })}>
+  return (
+    <div className={classNames({
+      'dui-input': true,
+      'dui-input-has-value': value,
+      'dui-input-has-focus': isFocus,
+      'dui-input-has-error': error,
+      'dui-input-has-icon-left': iconLeft,
+      'dui-input-has-icon-right': iconRight,
+    })}>
 
-        {this.props.label &&
-          <label
-            htmlFor={this.props.fieldId}
-            className="dui-input-label">
-            {this.props.label}
-          </label>
-        }
+      {label &&
+        <label
+          htmlFor={fieldId}
+          className="dui-input-label">
+          {label}
+        </label>
+      }
 
-        {this.props.iconLeft &&
-          <Icon name={this.props.iconLeft} className="dui-icon-left" />
-        }
+      {iconLeft &&
+        <Icon name={iconLeft} className="dui-icon-left" />
+      }
 
-        <input
-          type="text"
-          id={this.props.fieldId}
-          value={this.props.value}
-          placeholder={this.props.placeholder}
-          className="dui-input-input"
-          onClick={this._onClick}
-          onChange={this._onChange}
-          onFocus={this._onFocus}
-          onBlur={this._onBlur}
-          onKeyDown={this._onKeyDown}
-          disabled={this.props.isDisabled}
-          readOnly={this.props.isReadOnly}
-          tabIndex={this.props.tabIndex} />
+      <input
+        type="text"
+        id={fieldId}
+        value={value}
+        placeholder={placeholder}
+        className="dui-input-input"
+        disabled={isDisabled}
+        readOnly={isReadOnly}
+        tabIndex={tabIndex}
+        onClick={_onClick}
+        onChange={_onChange}
+        onFocus={_onFocus}
+        onBlur={_onBlur}
+        onKeyDown={_onKeyDown}
+        onKeyUp ={_onKeyUp} />
 
-        {this.props.iconRight &&
-          <Icon name={this.props.iconRight} className="dui-icon-right" />
-        }
+      {iconRight &&
+        <Icon name={iconRight} className="dui-icon-right" />
+      }
 
-        {this.props.error &&
-          <div className="dui-input-error">{this.props.error}</div>
-        }
+      {error &&
+        <div className="dui-input-error">{error}</div>
+      }
 
-      </div>
-    );
-  }
+    </div>
+  );
 }
-
-
-Input.defaultProps = {
-  fieldId: '',
-  label: '',
-  value: '',
-  placeholder: '',
-  iconLeft: null,
-  iconRight: null,
-  error: null,
-  isDisabled: false,
-  isReadOnly: false,
-  tabIndex: 0,
-
-  onClick: null,
-  onFocus: null,
-  onChange: null,
-  onBlur: null,
-  onKeyDown: null,
-  onKeyUp: null,
-};

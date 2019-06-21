@@ -1,76 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import { calculatePosition } from '../utils/commonUtils';
 
 import './Tooltip.scss';
 
 
-export default class Tooltip extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
-      top: false,
-      right: false,
-    };
-    this._messageRef = React.createRef();
-    this._tooltipRef = React.createRef();
-  }
+export default function Tooltip({
+  message = '',
+  children = null,
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [fitsTop, setFitsTop] = useState(false);
+  const [fitsRight, setFitsRight] = useState(false);
 
-  componentDidMount() {
-    const message = this._messageRef.current;
-    const messagePosition = calculatePosition(message);
-    this.setState({
-      top: messagePosition.top,
-      right: messagePosition.right,
-    });
+  const _messageRef = useRef();
+  const _tooltipRef = useRef();
 
-    this._onMouseEnter = this._onMouseEnter.bind(this);
-    this._onMouseLeave = this._onMouseLeave.bind(this);
-  }
+  useEffect(() => {
+    const messagePosition = calculatePosition(_messageRef.current);
+    setFitsTop(messagePosition.top);
+    setFitsRight(messagePosition.right);
+  }, [isVisible]);
 
-  _onMouseEnter(e) {
+  function _onMouseEnter(e) {
     const { clientX, clientY } = e;
-    const tooltip = this._tooltipRef.current;
+    const tooltip = _tooltipRef.current;
     const tooltipRect = tooltip.getBoundingClientRect();
     if (clientY > tooltipRect.top - 1 && clientY < tooltipRect.bottom &&
       clientX > tooltipRect.left - 1 && clientX < tooltipRect.right) {
-      this.setState({ visible: true });
+      setIsVisible(true);
     }
   }
 
-  _onMouseLeave(e) {
-    this.setState({ visible: false });
-  }
 
+  return (
+    <div
+      ref={_tooltipRef}
+      className="dui-tooltip"
+      onMouseEnter={_onMouseEnter}
+      onMouseLeave={() => setIsVisible(false)}>
 
-  render() {
-    return (
+      {children}
+
       <div
-        ref={this._tooltipRef}
-        className="dui-tooltip"
-        onMouseEnter={this._onMouseEnter}
-        onMouseLeave={this._onMouseLeave}>
-
-        {this.props.children}
-
-        <div
-          ref={this._messageRef}
-          className={classNames({
-            'dui-tooltip-message': true,
-            'dui-tooltip-message-visible': this.state.visible,
-            'dui-tooltip-message-top': this.state.top,
-            'dui-tooltip-message-right': this.state.right,
-          })}>
-          {this.props.message}
-        </div>
-
+        ref={_messageRef}
+        className={classNames({
+          'dui-tooltip-message': true,
+          'dui-tooltip-message-visible': isVisible,
+          'dui-tooltip-message-top': fitsTop,
+          'dui-tooltip-message-right': fitsRight,
+        })}>
+        {message}
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-
-Tooltip.defaultProps = {
-  message: '',
-};

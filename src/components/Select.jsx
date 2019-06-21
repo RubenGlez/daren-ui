@@ -1,152 +1,119 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import keycode from 'keycode';
 import classNames from 'classnames';
 import Input from './Input';
 import './Select.scss';
 
 
-export default class Select extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isActive: false,
-    };
+function Option({
+  value = '',
+  label = '',
+  isActive = false,
+  isSelected = false,
+  onClick = () => {},
+  onMouseEnter = () => {},
+}) {
+  return (
+    <div
+      key={value}
+      className={classNames({
+        'dui-select-options-option': true,
+        'dui-select-options-option-active': isActive,
+        'dui-select-options-option-selected': isSelected,
+      })}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}>
+      {label}
+    </div>
+  );
+}
 
-    [
-      '_onClick',
-      '_onKeyDown',
-      '_onClickOption',
-      '_getLabelByValue',
-      '_onMouseEnter',
-      '_onClickDocument',
-    ].forEach(method => {this[method] = this[method].bind(this);});
 
-    this._optionsRef = React.createRef();
-    this._selectRef = React.createRef();
+export default function Select({
+  fieldId = '',
+  value = '',
+  placeholder = '',
+  label = '',
+  options = [], // {value: xxx, label: xxx}
+  onChange = () => {},
+  isReadOnly = true,
+}) {
+  const [isActive, setIsActive] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const _selectRef = useRef();
 
-    this._activeClassname = 'dui-select-options-option-active';
+  function _onClickDocument(e) {
+    if (_selectRef.current.contains(e.target)) return;
+    setIsActive(false);
   }
 
-  componentDidMount() {
-    document.addEventListener('click', this._onClickDocument);
+  function _onClickOption(e) {
+    onChange(e, options[selectedIndex].value, fieldId);
+    setIsActive(false);
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this._onClickDocument);
-  }
-
-  _onClickDocument(e) {
-    if (this._selectRef.current.contains(e.target)) return;
-    this.setState({ isActive: false });
-  }
-
-  _onClick() {
-    this.setState({ isActive: true }, () => {
-      const activeOption = this._optionsRef.current.querySelector(`.${this._activeClassname}`);
-      if (!activeOption) {
-        const firstOption = this._optionsRef.current.querySelector('.dui-select-options-option');
-        firstOption.classList.add(this._activeClassname);
-      }
-    });
-  }
-
-  _onKeyDown(e) {
-    if (!this.state.isActive) return;
-    const currentSelection = this._optionsRef.current.querySelector(`.${this._activeClassname}`);
-
+  function _onKeyDown(e) {
+    let newIndex;
     if (keycode(e) === 'down') {
       e.preventDefault();
-      const nextElement = currentSelection.nextElementSibling;
-      if (nextElement) {
-        nextElement.classList.add(this._activeClassname);
-      } else {
-        currentSelection.parentElement.firstElementChild.classList.add(this._activeClassname);
-      }
-      currentSelection.classList.remove(this._activeClassname);
+      if (selectedIndex === 0) newIndex = 1;
+      else newIndex = selectedIndex === (options.length - 1) ? 0 : selectedIndex + 1;
+      setSelectedIndex(newIndex);
     } else if (keycode(e) === 'up') {
       e.preventDefault();
-      const prevElement = currentSelection.previousElementSibling;
-      if (prevElement) {
-        prevElement.classList.add(this._activeClassname);
-      } else {
-        currentSelection.parentElement.lastElementChild.classList.add(this._activeClassname);
-      }
-      currentSelection.classList.remove(this._activeClassname);
+      newIndex = selectedIndex === 0 ? (options.length - 1) : selectedIndex - 1;
+      setSelectedIndex(newIndex);
     } else if (keycode(e) === 'enter' || keycode(e) === 'tab') {
-      currentSelection.click();
+      _onClickOption(e);
     } else {
       return;
     }
   }
 
-  _onClickOption(e, value) {
-    if (this.props.onChange) this.props.onChange(e, value, this.props.fieldId);
-    this.setState({ isActive: false });
+  function _getLabelByValue(selectedValue) {
+    return useMemo(() => options.length && selectedValue ?
+      options.find(option => option.value === selectedValue).label : '',
+    [selectedValue]);
   }
 
-  _getLabelByValue(value) {
-    return this.props.options.length && value ?
-      this.props.options.find(option => option.value === value).label : '';
-  }
+  useEffect(() => {
+    document.addEventListener('click', _onClickDocument);
+    return () => {
+      document.removeEventListener('click', _onClickDocument);
+    };
+  });
 
-  _onMouseEnter(e) {
-    const currentSelection = this._optionsRef.current.querySelector(`.${this._activeClassname}`);
-    if (currentSelection) currentSelection.classList.remove(this._activeClassname);
-    e.currentTarget.classList.add(this._activeClassname);
-  }
-
-
-  render() {
-    const labelValue = this._getLabelByValue(this.props.value);
-
-    return (
-      <div
-        ref={this._selectRef}
-        className="dui-select">
-        <div className="dui-select-input">
-          <Input
-            fieldId={this.props.fieldId}
-            value={labelValue}
-            placeholder={this.props.placeholder}
-            label={this.props.label}
-            iconRight={'chevron-down'}
-            onClick={this._onClick}
-            onKeyDown={this._onKeyDown}
-            isReadOnly={true}
-          />
-        </div>
-
-        {this.props.options.length > 0 && this.state.isActive &&
-          <div
-            ref={this._optionsRef}
-            className="dui-select-options">
-            {this.props.options.map(option => {
-              return (
-                <div
-                  key={option.value}
-                  className={classNames({
-                    'dui-select-options-option': true,
-                    'dui-select-options-option-selected': option.value === this.props.value,
-                  })}
-                  onClick={e => this._onClickOption(e, option.value)}
-                  onMouseEnter={this._onMouseEnter}>
-                  {option.label}
-                </div>
-              );
-            })}
-          </div>
-        }
+  return (
+    <div
+      ref={_selectRef}
+      className="dui-select">
+      <div className="dui-select-input">
+        <Input
+          fieldId={fieldId}
+          value={_getLabelByValue(value)}
+          placeholder={placeholder}
+          label={label}
+          iconRight={'chevron-down'}
+          onClick={() => setIsActive(true)}
+          onKeyDown={_onKeyDown}
+          isReadOnly={isReadOnly}
+        />
       </div>
-    );
-  }
+
+      {options.length && isActive &&
+        <div className="dui-select-options">
+          {options.map((option, index) => (
+            <Option
+              value={option.value}
+              label={option.label}
+              isActive={option.value === options[selectedIndex].value}
+              isSelected={option.value === value}
+              onMouseEnter={() => setSelectedIndex(index)}
+              onClick={_onClickOption}
+            />
+          ))}
+        </div>
+      }
+    </div>
+  );
 }
-
-
-Select.defaultProps = {
-  fieldId: '',
-  value: '',
-  placeholder: '',
-  label: '',
-  options: [], // {value: xxx, label: xxx}
-  onChange: null,
-};

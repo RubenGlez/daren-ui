@@ -43,7 +43,7 @@ export default function Dropdown({
     return () => {
       document.removeEventListener('click', _onClickDocument);
     };
-  }, []);
+  }, [isVisible]);
 
 
   return (

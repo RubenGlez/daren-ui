@@ -1,0 +1,5 @@
+# Ignore files
+#########################################
+
+# Node modules
+node_modules/**

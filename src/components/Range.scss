@@ -1,0 +1,27 @@
+@import '../variables.scss';
+
+
+.dui-range{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  width: 100%;
+
+  &-dot{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background-color: $master;
+    opacity: .5;
+  }
+  &-line{
+    width: 100%;
+    height: 4px;
+    border-radius: map-get($radius, normal);
+    background-color: $master_light;
+  }
+}

@@ -9,13 +9,14 @@ export default class Tables extends Component {
     super(props);
     this.state = {
       items: [],
+      isLoading: true,
     };
   }
 
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(json => this.setState({items: json}));
+      .then(json => this.setState({ items: json, isLoading: false }));
   }
 
   render() {
@@ -38,6 +39,7 @@ export default class Tables extends Component {
             header={tableHeader}
             body={tableBody}
             resizable={true}
+            isLoading={this.state.isLoading}
           />
         </div>
       </Fragment>

@@ -22,7 +22,8 @@
       "System": true
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks"
     ],
     "parser": "babel-eslint",
     "rules": {
@@ -53,7 +54,7 @@
       // Prevent usage of setState in componentDidUpdate
       "react/no-did-update-set-state": 2,
       // Prevent multiple component definition per file
-      "react/no-multi-comp": 2,
+      // "react/no-multi-comp": 2,
       // Prevent usage of unknown DOM property
       "react/no-unknown-property": 2,
       // Prevent missing props validation in a React component definition
@@ -74,8 +75,10 @@
           "render"
         ]
       }],
-      // Prevent missing parentheses around multilines JSX
-      "react/jsx-wrap-multilines": 2,
+
+      // React Hooks
+      "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+      "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
 
       //Best Practices
       ////////////////////////////
