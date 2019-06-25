@@ -41,6 +41,7 @@ export default function Select({
   const [isActive, setIsActive] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const _selectRef = useRef();
+  const _optionsRef = useRef();
 
   function _onClickDocument(e) {
     if (_selectRef.current.contains(e.target)) return;
@@ -52,6 +53,18 @@ export default function Select({
     setIsActive(false);
   }
 
+  function _scrollIntoView() {
+    const optionsContainer = _optionsRef.current;
+    const optionsContainerRect = optionsContainer.getBoundingClientRect();
+    const selectedOption = optionsContainer.querySelector('.dui-select-options-option-active');
+    const selectedOptionRect = selectedOption.getBoundingClientRect();
+
+    if (selectedOptionRect.top < optionsContainerRect.top ||
+      selectedOptionRect.bottom > optionsContainerRect.bottom) {
+      selectedOption.scrollIntoView();
+    }
+  }
+
   function _onKeyDown(e) {
     let newIndex;
     if (keycode(e) === 'down') {
@@ -59,10 +72,12 @@ export default function Select({
       if (selectedIndex === 0) newIndex = 1;
       else newIndex = selectedIndex === (options.length - 1) ? 0 : selectedIndex + 1;
       setSelectedIndex(newIndex);
+      _scrollIntoView();
     } else if (keycode(e) === 'up') {
       e.preventDefault();
       newIndex = selectedIndex === 0 ? (options.length - 1) : selectedIndex - 1;
       setSelectedIndex(newIndex);
+      _scrollIntoView();
     } else if (keycode(e) === 'enter' || keycode(e) === 'tab') {
       _onClickOption(e);
     } else {
@@ -101,7 +116,9 @@ export default function Select({
       </div>
 
       {options.length && isActive &&
-        <div className="dui-select-options">
+        <div
+          ref={_optionsRef}
+          className="dui-select-options">
           {options.map((option, index) => (
             <Option
               value={option.value}
