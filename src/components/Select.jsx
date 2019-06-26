@@ -115,7 +115,7 @@ export default function Select({
         />
       </div>
 
-      {options.length && isActive &&
+      {options.length > 0 && isActive &&
         <div
           ref={_optionsRef}
           className="dui-select-options">

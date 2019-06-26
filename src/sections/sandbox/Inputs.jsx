@@ -5,7 +5,6 @@ import Input from '../../components/Input';
 import Checkbox from '../../components/Checkbox';
 import Radiobutton from '../../components/Radiobutton';
 import Select from '../../components/Select';
-import Range from '../../components/Range';
 
 
 export default class Inputs extends Component {
@@ -22,6 +21,7 @@ export default class Inputs extends Component {
       radio1: 1,
       select1: '',
       options: [],
+      range: '0',
     };
 
     this._onChange = this._onChange.bind(this);
@@ -45,13 +45,6 @@ export default class Inputs extends Component {
     return (
       <Fragment>
         <div className="dui-sandbox-content-title">Input.jsx</div>
-
-        <div className="dui-sandbox-content-subtitle">Range</div>
-        <div className="dui-sandbox-content-row">
-          <Range
-            value={8}
-          />
-        </div>
 
         <div className="dui-sandbox-content-subtitle">Select</div>
         <div className="dui-sandbox-content-row">
