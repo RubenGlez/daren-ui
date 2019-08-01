@@ -1,36 +1,50 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import WebFont from 'webfontloader';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
-import Home from './sections/Home';
-import Sandbox from './sections/sandbox/Sandbox';
-import Error from './sections/Error';
-
+// Assets
 import { ReactComponent as Icons } from './assets/icons.svg';
-
 import './index.scss';
+import PrivateRoute from './components/layout/PrivateRoute';
+import PublicRoute from './components/layout/PublicRoute';
+
+// Sections
+import Dashboard from './sections/dashboard/Dashboard';
+import Sandbox from './sections/sandbox/Sandbox';
+import SignIn from './sections/auth/SignIn';
+import SignUp from './sections/auth/SignUp';
+import Projects from './sections/projects/Projects';
+import ProfileContainer from './sections/user/ProfileContainer';
+
+// Fonts
+WebFont.load({ google: { families: ['Titillium Web:300,400,700', 'sans-serif'] } });
 
 
-WebFont.load({
-  google: {
-    families: ['Titillium Web:300,400,700', 'sans-serif'],
-  },
-});
-
-
-const Root = () => (
-  <Fragment>
-    <Icons />
+const Root = (
+  <Provider store={store}>
     <BrowserRouter>
+      <Icons />
       <Switch>
-        <Route path={'/'} component={Home} exact={true} />
+        <Redirect from={'/'} to={'/dashboard'} exact={true} />
+        {/* Dashboard */}
+        <PrivateRoute path={'/dashboard'} component={Dashboard} />
+        {/* Authentication */}
+        <PublicRoute path={'/signin'} component={SignIn} />
+        <PublicRoute path={'/signup'} component={SignUp} />
+        {/* Sandbox */}
         <Route path={'/sandbox'} component={Sandbox} />
-        <Route component={Error} />
+        {/* Projects */}
+        <PrivateRoute path={'/projects'} component={Projects} />
+        {/* User */}
+        <PrivateRoute path={'/profile'} component={ProfileContainer} />
       </Switch>
     </BrowserRouter>
-  </Fragment>
+  </Provider>
 );
 
-
-ReactDOM.render(<Root />, document.getElementById('root'));
+store.firebaseAuthIsReady.then(() => {
+  ReactDOM.render(Root, document.getElementById('root'));
+});

@@ -1,0 +1,23 @@
+@import '../variables.scss';
+
+.dui-card{
+  background-color: $white;
+  border: 1px solid $master_light;
+  border-radius: map-get($radius, big);
+  box-shadow: $shadow_card;
+
+  &-header{
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+
+    &-title{
+      font-size: 24px;
+    }
+  }
+
+  &-content{
+    padding: 16px;
+  }
+}

@@ -10,10 +10,10 @@ export default class Tooltips extends Component {
   renderDropdown() {
     return (
       <div className="dui-dropdown-panel-links">
-        <a href="#">Un enlace</a>
-        <a href="#">Un enlace</a>
-        <a href="#">Un enlace</a>
-        <a href="#">Un enlace super largo para ver que pasa</a>
+        <a href="/">Un enlace</a>
+        <a href="/">Un enlace</a>
+        <a href="/">Un enlace</a>
+        <a href="/">Un enlace super largo para ver que pasa</a>
       </div>
     );
   }

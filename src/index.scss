@@ -12,13 +12,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $master;
   font-size: 14px;
+  background-color: $master_lightest;
 }
 
 input,
 select,
 textarea,
 button{
-  font-family:inherit;
+  font-family: inherit;
 }
 
 code {

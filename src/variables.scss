@@ -43,6 +43,7 @@ $black: #000000;
 
 // Z-index
 $z-index: (
+  spinner: 100,
   dropdown: 50,
   base: 0,
 );
@@ -58,3 +59,5 @@ $radius: (
 
 // Shadows
 $shadow_dropdown: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+$shadow_navbar: 0 0 8px 0 rgba(0,0,0,.3);
+$shadow_card: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);

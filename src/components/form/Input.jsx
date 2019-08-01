@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import Icon from './Icon';
+import Icon from '../Icon';
 import './Input.scss';
 
 
@@ -15,6 +15,7 @@ export default function Input({
   isDisabled = false,
   isReadOnly = false,
   tabIndex = 0,
+  maxLength = null,
   onClick = null,
   onFocus = null,
   onChange = null,
@@ -23,6 +24,7 @@ export default function Input({
   onKeyUp = null,
 }) {
   const [isFocus, setIsFocus] = useState(false);
+  const inputRef = useRef();
 
   function _getValueFromEvent(event) {
     return event.target.value !== null && event.target.value !== undefined ? event.target.value : '';
@@ -31,7 +33,6 @@ export default function Input({
   function _getApiArguments(event) {
     return [event, _getValueFromEvent(event), fieldId];
   }
-
 
   function _onClick(e) {
     e.preventDefault();
@@ -63,6 +64,11 @@ export default function Input({
     if (onKeyUp) onKeyUp(..._getApiArguments(e));
   }
 
+  useEffect(() => {
+    if ([null, undefined, ''].includes(value)) return;
+    inputRef.current.value = value;
+  }, [value]);
+
   return (
     <div className={classNames({
       'dui-input': true,
@@ -86,20 +92,22 @@ export default function Input({
       }
 
       <input
+        ref={inputRef}
         type="text"
         id={fieldId}
-        value={value}
+        defaultValue={value}
         placeholder={placeholder}
         className="dui-input-input"
         disabled={isDisabled}
         readOnly={isReadOnly}
         tabIndex={tabIndex}
+        maxLength={maxLength}
         onClick={_onClick}
         onChange={_onChange}
         onFocus={_onFocus}
         onBlur={_onBlur}
         onKeyDown={_onKeyDown}
-        onKeyUp ={_onKeyUp} />
+        onKeyUp={_onKeyUp} />
 
       {iconRight &&
         <Icon name={iconRight} className="dui-icon-right" />

@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import './Sandbox.scss';
 
-import Input from '../../components/Input';
-import Checkbox from '../../components/Checkbox';
-import Radiobutton from '../../components/Radiobutton';
-import Select from '../../components/Select';
+import Input from '../../components/form/Input';
+import Checkbox from '../../components/form/Checkbox';
+import Radiobutton from '../../components/form/Radiobutton';
+import Select from '../../components/form/Select';
+import InputDate from '../../components/form/InputDate';
 
 
 export default class Inputs extends Component {
@@ -46,6 +47,18 @@ export default class Inputs extends Component {
       <Fragment>
         <div className="dui-sandbox-content-title">Input.jsx</div>
 
+        <div className="dui-sandbox-content-subtitle">InputDate</div>
+        <div className="dui-sandbox-content-row">
+          <InputDate
+            fieldId={'example_inputdate1'}
+            placeholder={'dd/mm/aa'}
+            label={'Fecha'}
+            value={this.state.example_inputdate1}
+            onBlur={this._onChange}
+            iconRight={'calendar'}
+          />
+        </div>
+
         <div className="dui-sandbox-content-subtitle">Select</div>
         <div className="dui-sandbox-content-row">
           <Select
@@ -54,7 +67,7 @@ export default class Inputs extends Component {
             placeholder={'Elige una opción'}
             label={'Label'}
             options={this.state.options}
-            onChange={this._onChange}
+            onBlur={this._onChange}
           />
         </div>
 
@@ -69,7 +82,7 @@ export default class Inputs extends Component {
               {value: 2, label: 'Dos'},
               {value: 3, label: 'Tres'},
             ]}
-            onChange={this._onChange}
+            onBlur={this._onChange}
           />
         </div>
 
@@ -79,7 +92,7 @@ export default class Inputs extends Component {
             fieldId={'check1'}
             label={'este es el label'}
             value={this.state.check1}
-            onChange={this._onChange}
+            onBlur={this._onChange}
           />
         </div>
 
@@ -89,34 +102,34 @@ export default class Inputs extends Component {
             fieldId={'example_input5'}
             placeholder={'Placeholder'}
             value={this.state.example_input5}
-            onChange={this._onChange}
+            onBlur={this._onChange}
             iconLeft={'flag'}
             iconRight={'search'}
           />
           <Input
             fieldId={'example_input4'}
             value={this.state.example_input4}
-            onChange={this._onChange}
+            onBlur={this._onChange}
           />
           <Input
             fieldId={'example_input1'}
             placeholder={'Placeholder'}
             label={'Label'}
             value={this.state.example_input1}
-            onChange={this._onChange}
+            onBlur={this._onChange}
           />
           <Input
             fieldId={'example_input2'}
             label={'Label'}
             value={this.state.example_input2}
-            onChange={this._onChange}
+            onBlur={this._onChange}
             isClearable={true}
           />
           <Input
             fieldId={'example_input3'}
             label={'Label'}
             value={this.state.example_input3}
-            onChange={this._onChange}
+            onBlur={this._onChange}
             error={'Hay errores en este campo y tienen una explicación super larga'}
           />
         </div>

@@ -1,0 +1,79 @@
+@import '../../variables.scss';
+
+.dui-navbar{
+  height: 56px;
+  background-color: $white;
+  box-shadow: $shadow_navbar;
+
+  &-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: inherit;
+    padding: 0 16px;
+
+    &-left{
+      svg {
+        width: 50px;
+        height: auto;
+        fill: $primary;
+      }
+    }
+  }
+}
+
+.dui-user-dropdown{
+  position: relative;
+
+  &-button{
+    cursor: pointer;
+  }
+
+  &-panel{
+    position: absolute;
+    top: 44px;
+    right: 0;
+    background-color: $white;
+    border-radius: map-get($radius, small);
+    box-shadow: $shadow_dropdown;
+
+    ul{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &-link{
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: 0.15 ease-in-out;
+      padding: 0 16px;
+      height: 40px;
+      color: $master;
+      text-decoration: none;
+
+      &:hover{
+        background-color: $master_lighter;
+      }
+
+      &-text{
+        line-height: 0;
+      }
+
+      .dui-icon{
+        width: 16px;
+        height: 16px;
+        fill: $master;
+        margin-right: 16px;
+      }
+    }
+
+    &-divider{
+      display: block;
+      border-bottom: 1px solid $master_light;
+    }
+  }
+}

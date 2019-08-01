@@ -1,0 +1,25 @@
+@import '../../variables.scss';
+
+.dui-profile-form{
+  width: 768px;
+  margin: 0 auto;
+  padding: 0 16px;
+
+  &-title{
+    font-weight: 400;
+    color: $master_dark;
+  }
+
+  &-section{
+    &-content{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 16px;
+      grid-row-gap: 16px;
+    }
+  }
+
+  &-footer{
+    margin-top: 32px;
+  }
+}

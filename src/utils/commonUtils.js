@@ -1,3 +1,9 @@
+export function debug(message, data) {
+  const consoleStyle = 'color: limegreen; font-weight: bold;';
+  return console.log('%c ' + message, data, consoleStyle);
+}
+
+
 export function calculatePosition(element) {
   const windowRect = {
     width: window.innerWidth,
